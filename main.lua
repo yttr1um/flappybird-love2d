@@ -13,3 +13,7 @@ function love.draw()
 
     Player:draw()
 end
+
+function love.keypressed(key)
+    Player:jump(key)
+end
