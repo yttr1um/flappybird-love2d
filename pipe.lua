@@ -3,16 +3,19 @@ local Pipe = {}
 function Pipe:load()
 
     self.width = 100
-    self.height = 300
+    self.height = 800
 
-    self.top = {y = 0}
-    self.bottom = {y = love.graphics.getHeight() - 100 - self.height}
-
-    self.pipe1 = {}
-    self.pipe1.x = love.graphics.getWidth()
-
-    self.pipe2 = {}
-    self.pipe2.x = love.graphics.getWidth() * 1.55
+    self.p1 = {}
+    self.p1.transform = math.random(-700, -300)
+    self.p1.top_y = self.p1.transform
+    self.p1.bottom_y = love.graphics.getHeight() + self.p1.transform + 50
+    self.p1.x = love.graphics.getWidth()
+    
+    self.p2 = {}
+    self.p2.x = love.graphics.getWidth() * 1.55
+    self.p2.transform = math.random(-700, -300)
+    self.p2.top_y = self.p2.transform
+    self.p2.bottom_y = love.graphics.getHeight() + self.p2.transform + 50
 
 end
 
@@ -21,25 +24,35 @@ function Pipe:update(dt)
 end
 
 function Pipe:move()
-    self.pipe1.x = self.pipe1.x - 2
-    self.pipe2.x = self.pipe2.x - 2
+    self.p1.x = self.p1.x - 2
+    self.p2.x = self.p2.x - 2
 
-    if self.pipe1.x + self.width < 0 then
-        self.pipe1.x = love.graphics.getWidth()
+    if self.p1.x + self.width < 0 then
+        self:randomizePipe(self.p1)
     end
 
-    if self.pipe2.x + self.width < 0 then
-        self.pipe2.x = love.graphics.getWidth()
+    if self.p2.x + self.width < 0 then
+        self:randomizePipe(self.p2)
     end
+end
+
+function Pipe:randomizePipe(pipe)
+    pipe.x = love.graphics.getWidth()
+        
+    pipe.transform = math.random(-700, -300)
+
+    pipe.top_y = pipe.transform
+    pipe.bottom_y = love.graphics.getHeight() + pipe.transform + 50
 end
 
 function Pipe:draw()
     love.graphics.setColor(0, 0.7, 0)
-    love.graphics.rectangle("fill", self.pipe1.x, self.top.y, self.width, self.height)
-    love.graphics.rectangle("fill", self.pipe1.x, self.bottom.y, self.width, self.height)
 
-    love.graphics.rectangle("fill", self.pipe2.x, self.top.y, self.width, self.height)
-    love.graphics.rectangle("fill", self.pipe2.x, self.bottom.y, self.width, self.height)
+    love.graphics.rectangle("fill", self.p1.x, self.p1.top_y, self.width, self.height)
+    love.graphics.rectangle("fill", self.p1.x, self.p1.bottom_y, self.width, self.height)
+
+    love.graphics.rectangle("fill", self.p2.x, self.p2.top_y, self.width, self.height)
+    love.graphics.rectangle("fill", self.p2.x, self.p2.bottom_y, self.width, self.height)
 end
 
 return Pipe

@@ -2,6 +2,8 @@ local Player = require("player")
 local Ground = require("ground")
 local Pipe = require("pipe")
 
+math.randomseed(os.time())
+
 function love.load()
     Player:load()
     Pipe:load()
@@ -17,8 +19,8 @@ end
 function love.draw()
     love.graphics.setBackgroundColor(0.4, 0.6, 0.9)
 
-    Ground:draw()
     Pipe:draw()
+    Ground:draw()
     Player:draw()
 
     love.graphics.setColor(1, 1, 1)
