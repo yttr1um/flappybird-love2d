@@ -5,21 +5,21 @@ function Player:load()
     self.x = love.graphics.getWidth() / 2 - self.radius
     self.y = love.graphics.getHeight() / 2
 
-    self.gravity = 300
-    self.jumpValue = -150
+    self.gravity = 0
 end
 
 function Player:update(dt)
-    self:applyGravity(dt)
+    self:applyGravity()
 end
 
-function Player:applyGravity(dt)
-    self.y = self.y + self.gravity * dt
+function Player:applyGravity()
+    self.gravity = self.gravity + 0.3
+    self.y = self.y + self.gravity
 end 
 
 function Player:jump(key)
     if key == "space" then 
-        self.y = self.y + self.jumpValue
+        self.gravity = -7
     end
 end
 
