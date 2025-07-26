@@ -8,14 +8,14 @@ function Pipe:load()
     self.p1 = {}
     self.p1.transform = math.random(-700, -300)
     self.p1.top_y = self.p1.transform
-    self.p1.bottom_y = love.graphics.getHeight() + self.p1.transform + 50
+    self.p1.bottom_y = love.graphics.getHeight() + self.p1.transform + 20
     self.p1.x = love.graphics.getWidth()
     
     self.p2 = {}
     self.p2.x = love.graphics.getWidth() * 1.55
     self.p2.transform = math.random(-700, -300)
     self.p2.top_y = self.p2.transform
-    self.p2.bottom_y = love.graphics.getHeight() + self.p2.transform + 50
+    self.p2.bottom_y = love.graphics.getHeight() + self.p2.transform + 20
 
 end
 
@@ -42,7 +42,7 @@ function Pipe:randomizePipe(pipe)
     pipe.transform = math.random(-700, -300)
 
     pipe.top_y = pipe.transform
-    pipe.bottom_y = love.graphics.getHeight() + pipe.transform + 50
+    pipe.bottom_y = love.graphics.getHeight() + pipe.transform + 20
 end
 
 function Pipe:draw()
