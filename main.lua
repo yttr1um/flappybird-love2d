@@ -23,9 +23,12 @@ end
 
 function love.draw()
 
+    local font = love.graphics.newFont("flappy.ttf", 88)
+
     if gamestate == "home" then
         love.graphics.setBackgroundColor(0, 0, 0)
-        love.graphics.printf("Flappy Bird", love.graphics.newFont(64),0, 250, love.graphics.getWidth(), "center")
+        love.graphics.setFont(font)
+        love.graphics.printf("Flappy Bird", 0, 250, love.graphics.getWidth() ,"center")
     end
 
     if gamestate == "running" then
