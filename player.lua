@@ -20,6 +20,7 @@ end
 function Player:collide()
     if self.y + self.height > Ground.y then
         self.y = Ground.y - self.height
+        love.event.quit()
     end
 end
 
