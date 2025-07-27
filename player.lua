@@ -10,6 +10,10 @@ function Player:load()
     self.y = love.graphics.getHeight() / 2
     self.gravity = 0
     self.score = 0
+
+    self.sounds = {}
+    self.sounds.flap = love.audio.newSource("sounds/flap.wav", "static")
+    self.sounds.score = love.audio.newSource("sounds/point.wav", "static")
 end
 
 function Player:update(dt)
@@ -22,6 +26,7 @@ end
 function Player:incrementScore()
     if self.x + self.width == Pipe.p1.x + Pipe.width / 2 or self.x + self.width == Pipe.p2.x + Pipe.width / 2 then
         self.score = self.score + 1
+        self.sounds.score:play()
     end
 end
 
@@ -57,6 +62,7 @@ end
 
 function Player:jump(key)
     if key == "space" then 
+        self.sounds.flap:play()
         self.gravity = -7
     end
 end
