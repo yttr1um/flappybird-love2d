@@ -11,9 +11,14 @@ function Player:load()
     self.gravity = 0
     self.score = 0
 
+    self.falling = false
+    self.hit = false
+
     self.sounds = {}
     self.sounds.flap = love.audio.newSource("sounds/flap.wav", "static")
     self.sounds.score = love.audio.newSource("sounds/point.wav", "static")
+    self.sounds.hit = love.audio.newSource("sounds/hit.wav", "static")
+    self.sounds.fall = love.audio.newSource("sounds/fall.wav", "static")
 end
 
 function Player:update(dt)
@@ -30,14 +35,8 @@ function Player:incrementScore()
     end
 end
 
-function Player:reset()
-    self.x = love.graphics.getWidth() / 2 - self.width
-    self.y = love.graphics.getHeight() / 2
-    self.score = 0
-    gamestate = "home"
-end
-
 function Player:collide()
+    self.falling = false
     if self.y + self.height > Ground.y then
         self.y = Ground.y - self.height
         self:reset()
@@ -50,8 +49,37 @@ function Player:passPipe(pipe)
             self:incrementScore()
 
         else
-            self:reset()
+            if not self.hit then
+                self.sounds.hit:play()
+                self.sounds.fall:play()
+                self.hit = true
+            end
+            if not self.falling then 
+                self:fall() 
+                self.falling = true
+            end
         end
+    end
+end
+
+function Player:reset()
+    self.x = love.graphics.getWidth() / 2 - self.width
+    self.y = love.graphics.getHeight() / 2
+    self.score = 0
+    self.hit = false
+    Pipe.moving = true
+    gamestate = "home"
+end
+
+function Player:fall()
+    Pipe.moving = false
+
+    if self.y + self.height < Ground.y then
+        self.y = self.y + 2
+    end
+
+    if self.y + self.height > Ground.y then
+        self.falling = false
     end
 end
 
@@ -61,9 +89,11 @@ function Player:applyGravity()
 end 
 
 function Player:jump(key)
-    if key == "space" then 
-        self.sounds.flap:play()
-        self.gravity = -7
+    if not self.falling then
+        if key == "space" then 
+            self.sounds.flap:play()
+            self.gravity = -7
+        end
     end
 end
 

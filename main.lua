@@ -50,7 +50,6 @@ function love.draw()
 end
 
 function love.keypressed(key)
-
     Player:jump(key)
 
     if key == "space" then
