@@ -1,5 +1,8 @@
 local Player = {}
 
+local Ground = require("ground")
+local Pipe = require("pipe")
+
 function Player:load()
     self.width = 75
     self.height = 50
@@ -11,6 +14,13 @@ end
 
 function Player:update(dt)
     self:applyGravity()
+    self:collide()
+end
+
+function Player:collide()
+    if self.y + self.height > Ground.y then
+        self.y = Ground.y - self.height
+    end
 end
 
 function Player:applyGravity()
