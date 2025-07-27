@@ -15,7 +15,9 @@ end
 function Player:update(dt)
     self:applyGravity()
     self:collide()
-    self:incrementScore()
+
+    self:passPipe(Pipe.p1)
+    self:passPipe(Pipe.p2)
 end
 
 function Player:incrementScore()
@@ -28,6 +30,17 @@ function Player:collide()
     if self.y + self.height > Ground.y then
         self.y = Ground.y - self.height
         love.event.quit()
+    end
+end
+
+function Player:passPipe(pipe)
+    if (self.x + self.width >= pipe.x) and (self.x < pipe.x + Pipe.width) then
+        if (self.y + self.height < pipe.bottom_y) and (self.y > pipe.top_y + Pipe.height) then
+            self:incrementScore()
+
+        else
+            love.event.quit()
+        end
     end
 end
 

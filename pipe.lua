@@ -24,8 +24,8 @@ function Pipe:update(dt)
 end
 
 function Pipe:move()
-    self.p1.x = self.p1.x - 2
-    self.p2.x = self.p2.x - 2
+    self.p1.x = self.p1.x - 1
+    self.p2.x = self.p2.x - 1
 
     if self.p1.x + self.width < 0 then
         self:randomizePipe(self.p1)
