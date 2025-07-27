@@ -1,3 +1,4 @@
+local Home = require("home")
 local Player = require("player")
 local Ground = require("ground")
 local Pipe = require("pipe")
@@ -8,12 +9,16 @@ function love.load()
 
     gamestate = "home"
 
+    Home:load()
     Player:load()
     Pipe:load()
     Ground:load()
 end
 
 function love.update(dt)
+
+    if gamestate == "home" then Home:update(dt) end
+
     if gamestate == "running" then
         Player:update(dt)
         Pipe:update(dt)
@@ -27,8 +32,7 @@ function love.draw()
     love.graphics.setFont(font)
 
     if gamestate == "home" then
-        love.graphics.setBackgroundColor(0, 0, 0)
-        love.graphics.printf("Flappy Bird", 0, 250, love.graphics.getWidth() ,"center")
+        Home:draw()
     end
 
     if gamestate == "running" then
