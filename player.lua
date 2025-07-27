@@ -8,13 +8,20 @@ function Player:load()
     self.height = 50
     self.x = love.graphics.getWidth() / 2 - self.width
     self.y = love.graphics.getHeight() / 2
-
     self.gravity = 0
+    self.score = 0
 end
 
 function Player:update(dt)
     self:applyGravity()
     self:collide()
+    self:incrementScore()
+end
+
+function Player:incrementScore()
+    if self.x + self.width == Pipe.p1.x + Pipe.width / 2 or self.x + self.width == Pipe.p2.x + Pipe.width / 2 then
+        self.score = self.score + 1
+    end
 end
 
 function Player:collide()

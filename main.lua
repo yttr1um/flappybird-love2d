@@ -24,6 +24,9 @@ function love.draw()
     Player:draw()
 
     love.graphics.setColor(1, 1, 1)
+    love.graphics.printf(Player.score, love.graphics.newFont(64), love.graphics.getWidth() / 2, 50, love.graphics.getWidth())
+
+    love.graphics.setColor(1, 1, 1)
 end
 
 function love.keypressed(key)
